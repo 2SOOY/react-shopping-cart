@@ -4,9 +4,10 @@ import { Switch, Route, Link, Redirect } from 'react-router-dom';
 import GlobalStyle from './globalStyle';
 import Header from '../src/components/Header';
 import MainContainer from '../src/components/shared/MainContainer';
-import { PATH } from './constants';
+import { MESSAGE, PATH } from './constants';
 import { Cart, ItemList, Order } from './pages';
-import { setItemList, store } from './store';
+import { store } from './store';
+import { setItemList } from './store/itemListReducer';
 import { setCartItemList } from './store/cartReducer';
 import { API } from '../src/services';
 import { ReactComponent as Logo } from './assets/icons/logo.svg';
@@ -22,8 +23,15 @@ function App() {
       const result = await API.getCartItemList();
       store.dispatch(setCartItemList(result));
     };
-    getItemListRequest();
-    getCartItemListRequest();
+
+    try {
+      getItemListRequest();
+      getCartItemListRequest();
+
+    } catch(error) {
+      console.error(error)
+      alert(MESSAGE.FAIL_FETCH_DATA)
+    }
   }, []);
 
   return (

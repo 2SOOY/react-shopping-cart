@@ -39,8 +39,8 @@ const Cart = () => {
   const checkOptionText = isAllChecked
     ? '선택해제'
     : checkedCount
-    ? `${checkedCount}개 선택`
-    : '전체선택';
+      ? `${checkedCount}개 선택`
+      : '전체선택';
 
   const totalPrice = list
     .filter(item => item.checked)
